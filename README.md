@@ -35,6 +35,32 @@ User Input ──> LangChain Agent (Mistral LLM)
 
 
 
+## 🚀 Deploying on Railway
+
+The **Streamlit web UI** (`UIAgents.py`) is the main entry point and what you deploy on Railway.
+
+### Steps
+
+1. **Push this repo to GitHub** (it already points to `github.com/Azansoh/City-Intelligence-Agent`).
+2. In [Railway](https://railway.app), click **New Project → Deploy from GitHub repo** and select this repo.
+3. Add the environment variables in the **Variables** tab:
+   - `OPENWEATHERMAP_API_KEY`
+   - `TAVILY_API_KEY`
+   - `MISTRAL_API_KEY`
+4. Railway auto-detects the `Procfile` and runs:
+   ```text
+   streamlit run UIAgents.py --server.address 0.0.0.0 --server.port $PORT ...
+   ```
+5. Open the generated **Public Networking** URL and chat with the agent.
+
+### Running locally
+
+```bash
+streamlit run UIAgents.py
+```
+
+---
+
 ## 📂 Project Structure
 
 Here is the repository structure and what each script contains:
@@ -45,7 +71,10 @@ GENERATIVE_AI_3/
 ├── .env                     # Secret API keys (Excluded via .gitignore)
 ├── .gitignore               # Git rules to prevent uploading keys & venv
 ├── requirements.txt         # Dependencies list
-├── Agents.py                # Main ReAct City Intelligence Agent with HITL
+├── Procfile                 # Railway start command (Streamlit web UI)
+├── runtime.txt              # Python version for Railway
+├── UIAgents.py              # MAIN: Streamlit web UI for the City Intelligence Agent
+├── Agents.py                # Terminal ReAct City Intelligence Agent with HITL
 ├── Builtintool.py           # Examples using built-in LangChain tools like tavily
 ├── Customtool.py            # Custom tool creation using @tool decorator
 ├── parallelrunnable.py      # Parallel execution using RunnableParallel
